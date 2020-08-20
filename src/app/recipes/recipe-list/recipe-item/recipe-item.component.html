@@ -1,5 +1,6 @@
-<a href="#" class="list-group-item clearfix"
-(click)="onSelected()">
+<a [routerLink]="[index]"
+  class="list-group-item clearfix"
+   style="cursor: pointer">
   <div class="col-md-9">
     <h4 class="list-group item-heading"> {{recipe.name}}</h4>
     <p class="list-group-item-text">{{recipe.description}}</p>

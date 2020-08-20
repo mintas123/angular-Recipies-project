@@ -14,7 +14,7 @@ export class RecipeService {
   private recipes: Recipe[] = [
     new Recipe('Tasty spaghet',
       'Makes your knees weak and arms sweaty.',
-      'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/spaghetti-puttanesca_1.jpg',
+      'https://cdn.aniastarmach.pl/content/uploads/2016/02/makaron-spaghetti-bolognese-1.jpg',
       [
         new Ingredient('Meat', 2),
         new Ingredient('Pasta', 1),
@@ -33,6 +33,10 @@ export class RecipeService {
 
   getRecipes() {
     return this.recipes.slice();
+  }
+
+  getRecipeById(index: number) {
+    return this.recipes[index];
   }
 
 
