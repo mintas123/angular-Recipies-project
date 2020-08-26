@@ -1,11 +1,13 @@
-import {Subject} from 'rxjs';
-import {Recipe} from './recipe.model';
 import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 import {Ingredient} from '../shared/ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
+import {Recipe} from './recipe.model';
 
 @Injectable()
 export class RecipeService {
+
+  recipesChanged = new Subject<Recipe[]>();
 
   constructor(private slService: ShoppingListService) {
   }
@@ -19,7 +21,7 @@ export class RecipeService {
         new Ingredient('Pasta', 1),
         new Ingredient('Tomato Sauce', 1),
       ]
-      ),
+    ),
     new Recipe('Awesome schnitzel',
       'You will crave it for days.',
       'https://www.daringgourmet.com/wp-content/uploads/2014/03/Schnitzel-5.jpg',
@@ -39,7 +41,23 @@ export class RecipeService {
   }
 
 
-  addRecipesToSL(ingredients: Ingredient[]){
-      this.slService.addIngredients(ingredients);
+  addRecipesToSL(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
   }
 }
